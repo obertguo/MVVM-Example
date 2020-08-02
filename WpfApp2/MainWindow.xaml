@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp2"
         mc:Ignorable="d"
-        Title="MainWindow" Height="250" Width="300">
+        Title="MainWindow" Height="300" Width="300">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -16,17 +16,20 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding FullName}" HorizontalAlignment="Left" Margin="10"/>
+        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding Path=FullName}" HorizontalAlignment="Left" Margin="10"/>
 
         <!-- Make sure changes in Text Boxes are immediately applied to the model through UpdateSourceTrigger=PropertyChanged-->
         <TextBlock Grid.Row="1" Grid.Column="0" Text="First Name" FontWeight="Bold" HorizontalAlignment="Right"/>
-        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding FirstName, UpdateSourceTrigger=PropertyChanged}" Width="200" HorizontalAlignment="Left" Margin="10"/>
+        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Path=FirstName, UpdateSourceTrigger=PropertyChanged}" Width="200" HorizontalAlignment="Left" Margin="10"/>
 
         <TextBlock Grid.Row="2" Grid.Column="0" Text="Last Name" FontWeight="Bold" HorizontalAlignment="Right"/>
-        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged}" Width="200" HorizontalAlignment="Left" Margin="10"/>
+        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Path=LastName, UpdateSourceTrigger=PropertyChanged}" Width="200" HorizontalAlignment="Left" Margin="10"/>
 
         <TextBlock Grid.Row="3" Grid.Column="0" Text="Age" FontWeight="Bold" HorizontalAlignment="Right"/>
-        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Age, UpdateSourceTrigger=PropertyChanged}" Width="200" HorizontalAlignment="Left" Margin="10"/>
+        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Path=Age, UpdateSourceTrigger=PropertyChanged}" Width="200" HorizontalAlignment="Left" Margin="10"/>
+
+        <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" Margin="10" Content="Click Here" Command="{Binding Path=CmdClickEvent}" CommandParameter="This is a parameter passed in XAML"/>
     </Grid>
 </Window>

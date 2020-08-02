@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Windows.Input;
 
 namespace WpfApp2
 {
@@ -8,12 +9,12 @@ namespace WpfApp2
         readonly UserModel user;
         public string FirstName
         {
-            get { return user.fName; }
+            get { return user.FName; }
             set
             {
-                if(user.fName != value)
+                if(user.FName != value)
                 {
-                    user.fName = value;
+                    user.FName = value;
                     OnPropertyChanged("FirstName");
                     OnPropertyChanged("FullName");
                     //Notify view of both firstname and fullname changes as to update both bindings
@@ -23,12 +24,12 @@ namespace WpfApp2
 
         public string LastName
         {
-            get { return user.lName; }
+            get { return user.LName; }
             set
             {
-                if(user.lName != value)
+                if(user.LName != value)
                 {
-                    user.lName = value;
+                    user.LName = value;
                     OnPropertyChanged("LastName");
                     OnPropertyChanged("FullName");
                 }
@@ -37,12 +38,12 @@ namespace WpfApp2
 
         public int Age
         {
-            get { return user.age; }
+            get { return user.Age; }
             set
             {
-                if(user.age != value)
+                if(user.Age != value)
                 {
-                    user.age = value;
+                    user.Age = value;
                     OnPropertyChanged("Age");
                     OnPropertyChanged("FullName");
                 }
@@ -58,9 +59,9 @@ namespace WpfApp2
         {
             user = new UserModel()
             {
-                fName = "John",
-                lName = "Doe",
-                age = 30
+                FName = "John",
+                LName = "Doe",
+                Age = 30
             };
         }
 
@@ -72,5 +73,32 @@ namespace WpfApp2
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
             //The ?.Invoke syntax is a shorthand for null checking
         }
+
+
+        private RelayCommand commandStart;
+        public ICommand CmdClickEvent
+        {
+            get
+            {
+                //If null, initialize relay command. Else, return the relay command.
+                if (commandStart == null) commandStart = new RelayCommand(param => ButtonClickExecute(param), param => CanStart());
+                return commandStart;
+             }
+        }
+
+        //Command Execution. It takes in a CommandParameter from XAML
+        private void ButtonClickExecute(object obj)
+        {
+
+            System.Windows.MessageBox.Show("Command Test" + " "  + obj.ToString());
+        }
+
+        //Check if command can be executed. If it returns false, the button is disabled. If it returns true, the button is enabled.
+        private bool CanStart()
+        {
+            if (this.FirstName.Length == 0 || this.LastName.Length == 0) return false;
+            return true;
+        }
+
     }
 }
